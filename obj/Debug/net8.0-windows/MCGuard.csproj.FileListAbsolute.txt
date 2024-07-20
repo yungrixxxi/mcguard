@@ -14,3 +14,4 @@ C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuar
 C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.genruntimeconfig.cache
 C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\ref\MCGuard.dll
 C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.MainWindow.resources
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.sourcelink.json

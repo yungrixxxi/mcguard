@@ -5,6 +5,7 @@ namespace MCGuard.Core
     internal class Server(string jarServerFile, int minimumMemory, int maximuMemory, string[] joinMessage, ListBox consoleListBox, ListView playerListView)
     {
         private Process? serverProcess;
+        private DateTime serverUptime;
 
         private readonly string[] joinMessage = joinMessage;
         private readonly string jarServerFile = jarServerFile;
@@ -33,6 +34,8 @@ namespace MCGuard.Core
         /// </summary>
         public void Start()
         {
+            serverUptime = DateTime.Now;
+
             if (serverProcess != null)
             {
                 serverProcess.Start();
@@ -50,6 +53,7 @@ namespace MCGuard.Core
                             playerName = playerName.Split('>')[0].Trim();
                             string command = text.Split(new[] { "> ." }, StringSplitOptions.None)[1].Trim();
                             OnCommandReceive(command, playerName);
+                            return;
                         }
                         else if (text != null && text.Contains("[/") && text.Contains("]") && text.Contains(":") && text.Contains("]:") && text.Contains("logged"))
                         {
@@ -63,13 +67,15 @@ namespace MCGuard.Core
                             playerId = playerId.Split(new[] { " at (" }, StringSplitOptions.None)[0].Trim();
 
                             OnConnectionReceive(playerName, playerIp, playerId);
+                            return;
                         }
-                        else if (text != null && text.Contains("left the game."))
+                        else if (text != null && text.Contains("left the game.") && text.Contains("]:"))
                         {
                             string playerName = text.Split(new[] { "left the game." }, StringSplitOptions.None)[0].Trim();
-                            playerName = playerName.Split(new[] { "]: " }, StringSplitOptions.None)[1].Trim();
+                            playerName = playerName.Split(new[] { "]:" }, StringSplitOptions.None)[1].Trim();
 
                             OnDisconnectionReceive(playerName);
+                            return;
                         }
 
                         if (text != null)
@@ -118,7 +124,19 @@ namespace MCGuard.Core
         /// <param name="playerName"></param>
         public void OnCommandReceive(string command, string playerName)
         {
+            if (command.Equals("info", StringComparison.CurrentCultureIgnoreCase))
+            {
+                TimeSpan timeSpan = (DateTime.Now - serverUptime);
 
+                SendInput("tellraw " + playerName + " {\"text\":\"> Server info:\"}");
+                SendInput("tellraw " + playerName + " {\"text\":\"\"}");
+                SendInput("tellraw " + playerName + " {\"text\":\"Uptime: " + timeSpan.Days + " days " + timeSpan.Hours + " hours " + timeSpan.Minutes+ " minutes\"}");
+                SendInput("tellraw " + playerName + " {\"text\":\"\"}");
+            }
+            else
+            {
+                SendInput("tellraw " + playerName + " {\"text\":\"[Server] Unknown mcguard command: ." + command + "\"}");
+            }
         }
 
         /// <summary>
