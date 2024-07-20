@@ -1,0 +1,16 @@
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\bin\Debug\net8.0-windows\MCGuard.exe
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\bin\Debug\net8.0-windows\MCGuard.deps.json
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\bin\Debug\net8.0-windows\MCGuard.runtimeconfig.json
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\bin\Debug\net8.0-windows\MCGuard.dll
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\bin\Debug\net8.0-windows\MCGuard.pdb
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.csproj.GenerateResource.cache
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.AssemblyInfoInputs.cache
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.AssemblyInfo.cs
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.csproj.CoreCompileInputs.cache
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.dll
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\refint\MCGuard.dll
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.pdb
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.genruntimeconfig.cache
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\ref\MCGuard.dll
+C:\Users\Yung Ricci\source\repos\MCGuard\MCGuard\obj\Debug\net8.0-windows\MCGuard.MainWindow.resources
