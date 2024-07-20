@@ -101,7 +101,7 @@ namespace MCGuard
 
                 server.SendInput(text);
 
-                if (text.Contains("stop", StringComparison.CurrentCultureIgnoreCase))
+                if (text.Equals("stop", StringComparison.CurrentCultureIgnoreCase))
                 {
                     Environment.Exit(0);
                 }

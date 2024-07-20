@@ -44,6 +44,20 @@ namespace MCGuard.Core
                     {
                         string? text = e.Data;
 
+                        if (text != null && text.Contains("> ."))
+                        {
+                            string playerName = text.Split('<')[1].Trim();
+                            playerName = playerName.Split('>')[0].Trim();
+                            string command = text.Split(new[] { "> ." }, StringSplitOptions.None)[1].Trim();
+                            OnCommandReceive(command, playerName);
+                        }
+                        else if (text != null && text.Contains("[/") && text.Contains("]") && text.Contains(":") && text.Contains("]:") && text.Contains("logged"))
+                        {
+                            string playerName = text.Split(new[] { "]: " }, StringSplitOptions.None)[1].Trim();
+                            playerName = playerName.Split(new[] { "[/" }, StringSplitOptions.None)[0].Trim();
+                            OnConnectionReceive(playerName);
+                        }
+
                         if (text != null)
                         {
                             if (consoleListBox.InvokeRequired)
@@ -81,6 +95,30 @@ namespace MCGuard.Core
         {
             serverProcess?.StandardInput.WriteLine(command);
             serverProcess?.StandardInput.Flush();
+        }
+
+        /// <summary>
+        /// Spouští se při zadání příkazu do chatu začínajcí tečkou "."
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="playerName"></param>
+        public void OnCommandReceive(string command, string playerName)
+        {
+
+        }
+
+        /// <summary>
+        /// Spouští se při připojení hráče.
+        /// </summary>
+        /// <param name="playerName"></param>
+        public void OnConnectionReceive(string playerName)
+        {
+            foreach (var messageLine in joinMessage)
+            {
+                SendInput("tellraw " + playerName + " {\"text\":\"[Server] " + messageLine.Trim() + "\"}");
+            }
+
+            SendInput("tellraw " + playerName + " {\"text\":\"\"}");
         }
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MCGuard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6da18a8da9ed029c2a294bc61ae8e373d6527ab1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6368d0e5b88a0ba2c8013ecf90f22d509fc1066")]
 [assembly: System.Reflection.AssemblyProductAttribute("MCGuard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MCGuard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
