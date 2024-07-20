@@ -73,12 +73,15 @@
             // PlayerListView
             // 
             PlayerListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader4 });
+            PlayerListView.FullRowSelect = true;
+            PlayerListView.GridLines = true;
             PlayerListView.Location = new Point(12, 11);
             PlayerListView.Name = "PlayerListView";
             PlayerListView.Size = new Size(834, 458);
             PlayerListView.TabIndex = 3;
             PlayerListView.UseCompatibleStateImageBehavior = false;
             PlayerListView.View = View.Details;
+            PlayerListView.SelectedIndexChanged += OnItemSelection;
             // 
             // columnHeader1
             // 
@@ -107,15 +110,16 @@
             BanSelectedBtn.TabIndex = 4;
             BanSelectedBtn.Text = "Ban";
             BanSelectedBtn.UseVisualStyleBackColor = true;
+            BanSelectedBtn.Click += BanSelectedBtn_Click;
             // 
             // SelectedPlayerLbl
             // 
             SelectedPlayerLbl.AutoSize = true;
             SelectedPlayerLbl.Location = new Point(852, 11);
             SelectedPlayerLbl.Name = "SelectedPlayerLbl";
-            SelectedPlayerLbl.Size = new Size(99, 15);
+            SelectedPlayerLbl.Size = new Size(96, 15);
             SelectedPlayerLbl.TabIndex = 5;
-            SelectedPlayerLbl.Text = "Selected player: #";
+            SelectedPlayerLbl.Text = "Selected player #";
             // 
             // KickSelectedBtn
             // 
@@ -125,6 +129,7 @@
             KickSelectedBtn.TabIndex = 6;
             KickSelectedBtn.Text = "Kick";
             KickSelectedBtn.UseVisualStyleBackColor = true;
+            KickSelectedBtn.Click += KickSelectedBtn_Click;
             // 
             // KillSelectedBtn
             // 
@@ -134,6 +139,7 @@
             KillSelectedBtn.TabIndex = 7;
             KillSelectedBtn.Text = "Kill";
             KillSelectedBtn.UseVisualStyleBackColor = true;
+            KillSelectedBtn.Click += KillSelectedBtn_Click_1;
             // 
             // OpenCreatorsUrlBtn
             // 

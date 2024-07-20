@@ -81,7 +81,7 @@ namespace MCGuard
                 }
             }
 
-            server = new Server("server.jar", minimumMemory, maximumMemory, joinMessage, ConsoleListBox);
+            server = new Server("server.jar", minimumMemory, maximumMemory, joinMessage, ConsoleListBox, PlayerListView);
 
             server.CreateProcess();
             server.Start();
@@ -158,6 +158,45 @@ namespace MCGuard
             {
                 e.Cancel = true;
             }
+        }
+
+        private void KillSelectedBtn_Click_1(object sender, EventArgs e)
+        {
+            if (PlayerListView.SelectedIndices.Count > 0)
+            {
+                string playerName = PlayerListView.Items[PlayerListView.SelectedIndices[0]].SubItems[2].Text;
+                server.SendInput("kill " + playerName);
+            }
+        }
+
+        private void KickSelectedBtn_Click(object sender, EventArgs e)
+        {
+            if (PlayerListView.SelectedIndices.Count > 0)
+            {
+                string playerName = PlayerListView.Items[PlayerListView.SelectedIndices[0]].SubItems[2].Text;
+                server.SendInput("kick " + playerName);
+            }
+        }
+
+        private void BanSelectedBtn_Click(object sender, EventArgs e)
+        {
+            if (PlayerListView.SelectedIndices.Count > 0)
+            {
+                string playerName = PlayerListView.Items[PlayerListView.SelectedIndices[0]].SubItems[2].Text;
+                server.SendInput("ban " + playerName);
+            }
+        }
+
+        private void OnItemSelection(object sender, EventArgs e)
+        {
+            if (PlayerListView.SelectedIndices.Count > 0)
+            {
+                string playerName = PlayerListView.Items[PlayerListView.SelectedIndices[0]].SubItems[2].Text;
+                SelectedPlayerLbl.Text = "Selected player #" + playerName;
+                return;
+            }
+
+            SelectedPlayerLbl.Text = "Selected player #";
         }
     }
 }

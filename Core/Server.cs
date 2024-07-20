@@ -2,7 +2,7 @@
 
 namespace MCGuard.Core
 {
-    internal class Server(string jarServerFile, int minimumMemory, int maximuMemory, string[] joinMessage, ListBox consoleListBox)
+    internal class Server(string jarServerFile, int minimumMemory, int maximuMemory, string[] joinMessage, ListBox consoleListBox, ListView playerListView)
     {
         private Process? serverProcess;
 
@@ -55,7 +55,21 @@ namespace MCGuard.Core
                         {
                             string playerName = text.Split(new[] { "]: " }, StringSplitOptions.None)[1].Trim();
                             playerName = playerName.Split(new[] { "[/" }, StringSplitOptions.None)[0].Trim();
-                            OnConnectionReceive(playerName);
+
+                            string playerIp = text.Split(new[] { "[/" }, StringSplitOptions.None)[1].Trim();
+                            playerIp = playerIp.Split(':')[0].Trim();
+
+                            string playerId = text.Split(new[] { "entity id" }, StringSplitOptions.None)[1].Trim();
+                            playerId = playerId.Split(new[] { " at (" }, StringSplitOptions.None)[0].Trim();
+
+                            OnConnectionReceive(playerName, playerIp, playerId);
+                        }
+                        else if (text != null && text.Contains("left the game."))
+                        {
+                            string playerName = text.Split(new[] { "left the game." }, StringSplitOptions.None)[0].Trim();
+                            playerName = playerName.Split(new[] { "]: " }, StringSplitOptions.None)[1].Trim();
+
+                            OnDisconnectionReceive(playerName);
                         }
 
                         if (text != null)
@@ -111,7 +125,7 @@ namespace MCGuard.Core
         /// Spouští se při připojení hráče.
         /// </summary>
         /// <param name="playerName"></param>
-        public void OnConnectionReceive(string playerName)
+        public void OnConnectionReceive(string playerName, string playerIp, string playerId)
         {
             foreach (var messageLine in joinMessage)
             {
@@ -119,6 +133,28 @@ namespace MCGuard.Core
             }
 
             SendInput("tellraw " + playerName + " {\"text\":\"\"}");
+
+            ListViewItem lvi = new ListViewItem((playerListView.Items.Count + 1).ToString());
+            lvi.SubItems.Add(playerId);
+            lvi.SubItems.Add(playerName);
+            lvi.SubItems.Add(playerIp);
+
+            playerListView.Items.Add(lvi);
+        }
+
+        /// <summary>
+        /// Spouští se při odpojení hráče.
+        /// </summary>
+        /// <param name="playerName"></param>
+        public void OnDisconnectionReceive(string playerName)
+        {
+            for (int i = 0; i < playerListView.Items.Count; i++)
+            {
+                if (playerListView.Items[i].SubItems[2].Text.Contains(playerName)) {
+                    playerListView.Items.RemoveAt(i);
+                    break;
+                }
+            }
         }
     }
 }
