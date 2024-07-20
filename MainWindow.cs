@@ -108,20 +108,56 @@ namespace MCGuard
             }
         }
 
+        /// <summary>
+        /// Vyèistí výstup z konzole.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClearListBtn_Click(object sender, EventArgs e)
         {
             ConsoleListBox.Items.Clear();
         }
 
+        /// <summary>
+        /// Otevøe github stránku vývojáøe.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OpenCreatorsUrlBtn_Click(object sender, EventArgs e)
         {
-            Process proc = new Process();
-            proc.StartInfo.FileName = "cmd.exe";
-            proc.StartInfo.RedirectStandardInput = true;
-            proc.StartInfo.CreateNoWindow = true;
+            Process proc = new()
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    RedirectStandardInput = true,
+                    CreateNoWindow = true,
+                }
+            };
+
             proc.Start();
             proc.StandardInput.WriteLine("start https://github.com/yungrixxxi");
             proc.Close();
+        }
+
+        /// <summary>
+        /// Zobrazí dialog jestli si pøejete doopravdy stopnout server a ukonèit process.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AskToClose(object sender, FormClosingEventArgs e)
+        {
+            var dialogResult = Logger.Information("Server will be stopped..\n\nDo you want to continue?", "MCGuard - Information", true);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                server.SendInput("stop");
+                Environment.Exit(0);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
         }
     }
 }

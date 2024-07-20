@@ -80,6 +80,7 @@ namespace MCGuard.Core
         public void SendInput(string command)
         {
             serverProcess?.StandardInput.WriteLine(command);
+            serverProcess?.StandardInput.Flush();
         }
     }
 }

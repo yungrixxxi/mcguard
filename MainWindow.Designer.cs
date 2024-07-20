@@ -165,6 +165,7 @@
             Name = "MainWindow";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainWindow";
+            FormClosing += AskToClose;
             Load += AppLoaded;
             ResumeLayout(false);
             PerformLayout();
