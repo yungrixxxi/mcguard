@@ -2,32 +2,27 @@
 
 namespace MCGuard.Utils
 {
-    internal class ConfigManager
+    /// <summary>
+    /// Konstruktor pro instanci konfigurace.
+    /// </summary>
+    /// <param name="configFile">Jméno souboru konfigurace.</param>
+    internal class ConfigManager(string configFile)
     {
         /// <summary>
         /// Vlastnost jména konfiguračního souboru.
         /// </summary>
-        public string ConfigFile { get; private init; }
+        public string ConfigFile { get; private init; } = configFile;
 
         /// <summary>
         /// Oddělovací čára v konfiguraci.
         /// např. jmenohodnoty = hodnota
         /// </summary>
-        private char configDelimiter = '=';
+        private readonly char configDelimiter = '=';
 
         /// <summary>
         /// List který načte konfiguraci ze souboru a poté se z něj konfigurace také čte.
         /// </summary>
-        private List<Config> configList = new List<Config>();
-
-        /// <summary>
-        /// Konstruktor pro instanci konfigurace.
-        /// </summary>
-        /// <param name="configFile">Jméno souboru konfigurace.</param>
-        public ConfigManager(string configFile)
-        {
-            ConfigFile = configFile;
-        }
+        private readonly List<Config> configList = [];
 
         /// <summary>
         /// Načte konfigurační soubor do paměti.
@@ -59,7 +54,9 @@ namespace MCGuard.Utils
                         bool exists = false;
                         foreach (var configLine in configList)
                         {
-                            if (configLine.KeyName.Contains(requiredConfig))
+                            string keyName = configLine.KeyName ?? "";
+
+                            if (keyName.Contains(requiredConfig) && keyName.Trim().Length > 0)
                             {
                                 exists = true;
                             }

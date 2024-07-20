@@ -1,11 +1,14 @@
+using MCGuard.Core;
 using MCGuard.Utils;
+using System.Diagnostics;
 
 namespace MCGuard
 {
     public partial class MainWindow : Form
     {
-        private static ConfigManager? mcguardConfig;
-        private static ConfigManager? spigotConfig;
+        private ConfigManager? mcguardConfig;
+        private ConfigManager? spigotConfig;
+        private Server server;
 
         /// <summary>
         /// Port serveru.
@@ -17,20 +20,15 @@ namespace MCGuard
         /// </summary>
         private string? windowTitle;
 
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            
-        }
+        public MainWindow() => InitializeComponent();
 
         private void AppLoaded(object sender, EventArgs e)
         {
             mcguardConfig = new ConfigManager("mcguard.ini");
             spigotConfig = new ConfigManager("server.properties");
 
-            string[] requiredMcgConfig = { "srv.title", "memory.max", "memory.min" };
-            string[] requiredSpigotConfig = { "server-port" };
+            string[] requiredMcgConfig = ["srv.title", "srv.joinmsg", "memory.max", "memory.min"];
+            string[] requiredSpigotConfig = ["server-port"];
 
             if (!mcguardConfig.LoadConfiguration(requiredMcgConfig))
             {
@@ -56,6 +54,8 @@ namespace MCGuard
             int minimumMemory = 256;   // minimální doporuèená velikost pro verzi 1.8.X
             int maximumMemory = 1024;  // maximální hodnota mùže bejt 1024, dostaèující.
 
+            string[]? joinMessage = mcguardConfig.GetValue("srv.joinmsg")?.Split('|') ?? new string[] { };
+
             if (int.TryParse(mcguardConfig.GetValue("memory.min"), out int min))
             {
                 minimumMemory = min;
@@ -80,6 +80,48 @@ namespace MCGuard
                     Environment.Exit(0);
                 }
             }
+
+            server = new Server("server.jar", minimumMemory, maximumMemory, joinMessage, ConsoleListBox);
+
+            server.CreateProcess();
+            server.Start();
+        }
+
+        /// <summary>
+        /// Odešle výstup pøíkazu do serveru.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SendInput(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string text = ServerInputTxt.Text;
+                ServerInputTxt.Clear();
+
+                server.SendInput(text);
+
+                if (text.Contains("stop", StringComparison.CurrentCultureIgnoreCase))
+                {
+                    Environment.Exit(0);
+                }
+            }
+        }
+
+        private void ClearListBtn_Click(object sender, EventArgs e)
+        {
+            ConsoleListBox.Items.Clear();
+        }
+
+        private void OpenCreatorsUrlBtn_Click(object sender, EventArgs e)
+        {
+            Process proc = new Process();
+            proc.StartInfo.FileName = "cmd.exe";
+            proc.StartInfo.RedirectStandardInput = true;
+            proc.StartInfo.CreateNoWindow = true;
+            proc.Start();
+            proc.StandardInput.WriteLine("start https://github.com/yungrixxxi");
+            proc.Close();
         }
     }
 }

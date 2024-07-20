@@ -40,6 +40,7 @@
             SelectedPlayerLbl = new Label();
             KickSelectedBtn = new Button();
             KillSelectedBtn = new Button();
+            OpenCreatorsUrlBtn = new Button();
             SuspendLayout();
             // 
             // ServerInputTxt
@@ -48,6 +49,7 @@
             ServerInputTxt.Name = "ServerInputTxt";
             ServerInputTxt.Size = new Size(343, 23);
             ServerInputTxt.TabIndex = 0;
+            ServerInputTxt.KeyDown += SendInput;
             // 
             // ConsoleListBox
             // 
@@ -66,6 +68,7 @@
             ClearListBtn.TabIndex = 2;
             ClearListBtn.Text = "Clear List";
             ClearListBtn.UseVisualStyleBackColor = true;
+            ClearListBtn.Click += ClearListBtn_Click;
             // 
             // PlayerListView
             // 
@@ -132,11 +135,22 @@
             KillSelectedBtn.Text = "Kill";
             KillSelectedBtn.UseVisualStyleBackColor = true;
             // 
+            // OpenCreatorsUrlBtn
+            // 
+            OpenCreatorsUrlBtn.Location = new Point(1084, 56);
+            OpenCreatorsUrlBtn.Name = "OpenCreatorsUrlBtn";
+            OpenCreatorsUrlBtn.Size = new Size(111, 28);
+            OpenCreatorsUrlBtn.TabIndex = 8;
+            OpenCreatorsUrlBtn.Text = "yungrixxxi.xyz";
+            OpenCreatorsUrlBtn.UseVisualStyleBackColor = true;
+            OpenCreatorsUrlBtn.Click += OpenCreatorsUrlBtn_Click;
+            // 
             // MainWindow
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1205, 511);
+            Controls.Add(OpenCreatorsUrlBtn);
             Controls.Add(KillSelectedBtn);
             Controls.Add(KickSelectedBtn);
             Controls.Add(SelectedPlayerLbl);
@@ -149,6 +163,7 @@
             FormBorderStyle = FormBorderStyle.Fixed3D;
             MaximizeBox = false;
             Name = "MainWindow";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MainWindow";
             Load += AppLoaded;
             ResumeLayout(false);
@@ -169,5 +184,6 @@
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
+        private Button OpenCreatorsUrlBtn;
     }
 }
